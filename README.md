@@ -8,7 +8,7 @@ add remove or replace it, sort it's places simple drag and drop
 
 Enter this repo's URL in Automatic1111's extension tab "Install from Url":
 
-https://github.com/834t/b34t-prompt-gen-a1111.git
+https://github.com/834t/b34t-prompt-generator-a1111.git
 
 ### Usage
 Enable extension
