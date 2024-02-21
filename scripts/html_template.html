@@ -1,0 +1,215 @@
+<div id="b34t_gen_outer_container" class="noselect" style="min-width: 400px;">
+    <style>
+
+      body {
+        margin: 0;
+      }
+
+      @keyframes colorFade {
+        from {
+          background-color: lightgreen; 
+        }
+        to {
+          background-color: white;
+        }
+      }
+
+      #b34t_gen_outer_container *{
+        color:#000 !important;
+      }
+
+      #b34t_prompt {
+        min-width: 400px;
+        min-height: 200px;
+        background-color: aliceblue;
+        font-size: 18px;
+        color:#000;
+      }
+
+      #modules_line_element {
+        min-width: 400px;
+        background-color: blanchedalmond;
+      }
+
+      .gen_module input{
+        -webkit-user-select: auto; /* Safari */
+        -ms-user-select: auto; /* IE 10 and IE 11 */
+        user-select: auto; /* Standard syntax */
+      }
+
+      .gen_module{
+        display: inline-block;
+        padding: 2px 5px;
+        margin: 2px;
+        border: none;
+        box-shadow: 0px 3px 5px #ccc;
+        border-radius: 5px;
+        background: #fefefe;
+        cursor: pointer;
+      }
+
+      .gen_module_def{
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+      }
+
+      .gen_module:hover{
+        box-shadow: 0px 3px 5px #7a6e5e;
+      }
+      .gen_module.dragged_on_right{
+        border-right: 4px #35ffee solid;
+      }
+      .gen_module.dragged_on_left{
+        border-left: 4px #35ffee solid;
+      }
+
+      .gen_module button{
+        height: 16px;
+        width: 16px;
+        line-height: 10px;
+        padding: 1px 3px;
+        margin: 3px 3px 3px 10px;
+        border: none;
+        box-shadow: 0px 3px 5px #ccc;
+        cursor: pointer;
+      }
+      
+      .gen_module input{
+        height: 16px;
+      }
+
+      .text_part_span {
+        border: none;
+        background-color: #fff; 
+        animation: colorFade 1450ms ease-in-out; 
+      }
+      .text_part_span.hovered_control_element {
+        box-shadow: inset 0 0 7px #356b35;
+      }
+
+
+      #buttons button{
+
+      }
+
+      .mbutton{
+        background-color: #dadada !important;
+        padding: 1px 8px !important;
+        margin: 2px !important;
+        color: #000 !important;
+        font-size: 14px !important;
+        border-radius: 3px !important;
+        line-height: 15px !important;
+        cursor: pointer !important;
+      }
+
+      #buttons .separator{
+        color: #999 !important;
+      }
+
+      .removeDatasetButton {
+        display: block;
+        float: right;
+        background-color: rgb(255 115 115);
+        color: #fff;
+        border-radius: 3px;
+        width: 12px;
+        height: 12px;
+        font-size: 10px;
+        font-weight: bold;
+        line-height: 11px;
+        margin: 1px -5px 0px 4px;
+      }
+
+      .install_custom_dataset_button {
+        background-color: #dadada;
+        padding: 1px 8px;
+        margin: 2px;
+        color: #000;
+        font-size: 10px;
+        border-radius: 3px;
+        line-height: 10px;
+        cursor: pointer;
+      }
+
+      .install_custom_dataset_button:hover {
+        background-color: #ffa127;
+        color: #fefefe;
+      }
+
+      .workflow_menu {
+        font-size: 10px;
+        color: #666;
+        float: right;
+        border-radius: 3px;
+        background-color: #eee;
+        box-shadow: 0px 3px 5px #ccc;
+        line-height: 18px;
+        padding: 0px 9px;
+        margin: 0px 2px;
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+      }
+
+      .workflow_menu:hover{
+        box-shadow: 0px 3px 5px #7a6e5e;
+      }
+
+      .workflow_menu:active{
+        box-shadow: 0px 3px 5px #7a6e5e;
+        background-color: #ff874f;
+        color: #eee;
+      }
+    </style>
+    <button style="width: 40%; float: left;" id="copy_clipboard" class="mbutton" value="copy_clipboard">copy clipboard</button>
+    <button style="width: 40%; float: right;" id="send_to_a111_prompt" class="mbutton" value="send_to_a111_prompt">send to prompt</button>
+    <button style="width: 100%;" id="generate" class="mbutton" value="generate_prompt">gen</button>
+    <br>
+    <div style="display: none;" >
+      <div class="gen_module gen_module_def" id="varTemplate1"><button class="mRemove">x</button></div>
+      <div class="gen_module gen_module_input" id="varTemplate2"><input class="gen_module_textarea" type="text" /><button class="mRemove">x</button></div>
+      <div class="gen_module gen_module_def" id="varTemplate3">,<button class="mRemove">x</button></div>
+    </div>
+    <div id="b34t_prompt"></div>
+    <!-- <button value="copy_to_clipboard" onclick="eClick(this)">copy_to_clipboard</button> -->
+    <div id="modules_line_element"></div>
+    <div id="buttons">
+      <button class="mbutton" value="add_custom">+ custom</button>
+      <button class="mbutton" value="add_coma">+ comma</button>
+      <span class="separator">||</span>
+      <button class="mbutton" value="add_flavors">+ flavors</button>
+      <span class="separator">||</span>
+      <button class="mbutton" value="add_activity">+ activity</button>
+      <button class="mbutton" value="add_atmosphere">+ atmosphere</button>
+      <button class="mbutton" value="add_artists">+ artists</button>
+      
+      <br>
+      <!-- <button class="mbutton" value="add_movement">+ movement</button> -->
+      <button class="mbutton" value="add_female">+ female</button>
+      <button class="mbutton" value="add_male">+ male</button>
+      <button class="mbutton" value="add_item">+ item</button>
+      <button class="mbutton" value="add_mediums">+ mediums (style)</button>
+      <br>
+      <div id="custom_datasets" title="custom datasets" ></div> 
+      <div  style="min-width: 400px;" >
+        <input type="file" accept=".txt" type="file" id="installCustomDataset" style="display: none;" title="install custom dataset" value="install_custom_dataset" />
+        <input type="file" accept=".json" type="file"  id="load_workflow_input" style="display: none;" title="install custom dataset" value="load_workflow" />
+        <label for="installCustomDataset"  class="install_custom_dataset_button">install custom dataset</label>
+        <span style="font-size: 10px; color: #999 !important;">extension file .txt - each new prompt starts on a new line</span>
+        <a 
+          class="workflow_menu" 
+          id="save_workflow" 
+          title="download your current prompt with crads and custom datasets"
+          >save</a>
+        <label 
+          class="workflow_menu" 
+          id="load_workflow" 
+          for="load_workflow_input" 
+          title="upload early saved workflow"
+          >load</label>
+      </div>
+    </div>
+</div>
