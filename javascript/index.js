@@ -727,7 +727,7 @@
       const prompt_container = document.getElementById('txt2img_prompt');
       const textInput = prompt_container.querySelector('textarea');
       textInput.value = prompt;
-      textInput.dispatchEvent( new InputEvent( 'insertText' ) );
+      textInput.dispatchEvent( new Event( 'input' ) );
     });
 
     window.eClick = ( e ) => { if( App ){ App.onClick( e ); } }
