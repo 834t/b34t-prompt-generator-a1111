@@ -235,12 +235,12 @@
           this.textArea = this.element.getElementsByClassName('gen_module_textarea')[0];
           this.textArea.oninput = ( e ) => {
             this.text = this.textArea.value;
-            const postOffset = 40;
-            const minWidth = 50;
-            const maxWidth = document.getElementById('modules_line_element').width - postOffset;
-            const textWidth = measureTextByElement( this.text, this.textArea );
-            const nextWidth = Math.max( Math.min( maxWidth, textWidth ), minWidth );
-            this.element.style.width = `${nextWidth}px`;
+            // const postOffset = 40;
+            // const minWidth = 50;
+            // const maxWidth = document.getElementById('modules_line_element').width - postOffset;
+            // const textWidth = measureTextByElement( this.text, this.textArea );
+            // const nextWidth = Math.max( Math.min( maxWidth, textWidth ), minWidth );
+            // this.element.style.width = `${nextWidth}px`;
             this.api.updatePrompt();
           }
         }
