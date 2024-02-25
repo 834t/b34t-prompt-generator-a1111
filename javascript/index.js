@@ -135,7 +135,6 @@
           if( this.type === 'custom' ){
             this.text = serialisedData.text;
             this.textArea.value = this.text;
-            this.updateTextAreaSize();
           } else if( serialisedData.text ){
             this.text = serialisedData.text;
           }
@@ -710,7 +709,6 @@
         this.modules_line_element.innerHTML = '';
         for( const nextModule of this.elements ){
           this.modules_line_element.appendChild( nextModule.element );
-          nextModule.updateTextAreaSize();
         }
         this.presetPrompt();
       }
