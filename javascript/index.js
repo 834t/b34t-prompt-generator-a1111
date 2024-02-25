@@ -135,6 +135,7 @@
           if( this.type === 'custom' ){
             this.text = serialisedData.text;
             this.textArea.value = this.text;
+            this.textArea.computeWidth();
           } else if( serialisedData.text ){
             this.text = serialisedData.text;
           }
@@ -231,21 +232,20 @@
           this.element.title = 'click to roll module content';
         }
         if( this.type === 'custom' ){
-          const computeWidth = ( text ) => {
+          this.textArea = this.element.getElementsByClassName('gen_module_textarea')[0];
+          this.textArea.computeWidth = () => {
             const postOffset = 150;
             const minWidth = 50;
             const maxWidth = document.getElementById('modules_line_element').offsetWidth - postOffset;
-            const textWidth = measureTextByElement( this.text, this.textArea ) + 30;
+            const textWidth = measureTextByElement( this.textArea.value, this.textArea ) + 30;
             const nextWidth = Math.max( Math.min( maxWidth, textWidth ), minWidth );
             this.textArea.style.width = `${nextWidth}px`;
-          }
-          this.textArea = this.element.getElementsByClassName('gen_module_textarea')[0];
+          };
           this.textArea.oninput = ( e ) => {
             this.text = this.textArea.value;
-            computeWidth( this.text );
+            this.textArea.computeWidth( this.text );
             this.api.updatePrompt();
           }
-          setTimeout( () => { computeWidth( this.text ); }, 5 );
         }
         this.removeButton = this.element.getElementsByClassName('mRemove')[0];
         if( this.type != 'custom' && this.type != 'coma' ){
