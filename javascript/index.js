@@ -135,7 +135,7 @@
           if( this.type === 'custom' ){
             this.text = serialisedData.text;
             this.textArea.value = this.text;
-            setTimout( () => { this.textArea.computeWidth(); }, 500 );
+            this.updateTextAreaSize();
           } else if( serialisedData.text ){
             this.text = serialisedData.text;
           }
@@ -179,6 +179,16 @@
         } else {
           this.dropPosition = null;
         }
+      }
+
+      updateTextAreaSize(){
+        if( !this.textArea ) return false;
+        const postOffset = 150;
+        const minWidth = 50;
+        const maxWidth = document.getElementById('modules_line_element').offsetWidth - postOffset;
+        const textWidth = measureTextByElement( this.textArea.value, this.textArea ) + 30;
+        const nextWidth = Math.max( Math.min( maxWidth, textWidth ), minWidth );
+        this.textArea.style.width = `${nextWidth}px`;
       }
     
       init(){
@@ -233,17 +243,9 @@
         }
         if( this.type === 'custom' ){
           this.textArea = this.element.getElementsByClassName('gen_module_textarea')[0];
-          this.textArea.computeWidth = () => {
-            const postOffset = 150;
-            const minWidth = 50;
-            const maxWidth = document.getElementById('modules_line_element').offsetWidth - postOffset;
-            const textWidth = measureTextByElement( this.textArea.value, this.textArea ) + 30;
-            const nextWidth = Math.max( Math.min( maxWidth, textWidth ), minWidth );
-            this.textArea.style.width = `${nextWidth}px`;
-          };
           this.textArea.oninput = ( e ) => {
             this.text = this.textArea.value;
-            this.textArea.computeWidth();
+            this.updateTextAreaSize();
             this.api.updatePrompt();
           }
         }
@@ -708,6 +710,7 @@
         this.modules_line_element.innerHTML = '';
         for( const nextModule of this.elements ){
           this.modules_line_element.appendChild( nextModule.element );
+          nextModule.updateTextAreaSize();
         }
         this.presetPrompt();
       }
