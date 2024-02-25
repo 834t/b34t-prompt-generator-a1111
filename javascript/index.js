@@ -427,6 +427,7 @@
             this.prepareCustomDataset( nextDataSetName, dataset ).then( ( datasetForSave ) => {
               this.localStoredDatasets.push( datasetForSave );
               this.saveLocalStoredDataSets();
+              this.resetCustomDatasets();
               // window.location.reload();
             } );
           }
@@ -467,7 +468,8 @@
         }
         this.localStoredDatasets = customDatasetsAfterUninstall;
         this.saveLocalStoredDataSets();
-        window.location.reload();
+        this.resetCustomDatasets();
+        // window.location.reload();
       }
     
       createCustomDatasetButton( datasetName ){
@@ -480,6 +482,30 @@
         removeSpan.innerText = 'x';
         nextButton.appendChild( removeSpan );
         return { button: nextButton, remove: removeSpan };
+      }
+
+      resetCustomDatasets(){
+            
+        const custom_data_container = document.getElementById('custom_datasets');
+
+        custom_data_container.innerHTML = "";
+    
+        if( localStoredDatasets && this.localStoredDatasets.length ){
+          for( const nextDataSet of this.localStoredDatasets ){
+            ELEMENTS_TYPES[ nextDataSet.type ] = nextDataSet;
+            const { button, remove } = this.createCustomDatasetButton( nextDataSet.type );
+            remove.addEventListener( 'click', ( e ) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if( confirm('do you whant to delete this dataset and elements of it?') ){
+                this.uninstallCustomDataset( nextDataSet.type );
+                // console.log('try to delete');
+              }
+            });
+            custom_data_container.appendChild( button );
+          }
+        }
+        
       }
     
       init(){
@@ -505,24 +531,26 @@
         this.prompt_field_element = document.getElementById('b34t_prompt');
         this.modules_line_element = document.getElementById('modules_line_element');
         this.generate_button = document.getElementById('generate');
+
+        this.resetCustomDatasets();
+        
+        // const custom_data_container = document.getElementById('custom_datasets');
     
-        const custom_data_container = document.getElementById('custom_datasets');
-    
-        if( localStoredDatasets && this.localStoredDatasets.length ){
-          for( const nextDataSet of this.localStoredDatasets ){
-            ELEMENTS_TYPES[ nextDataSet.type ] = nextDataSet;
-            const { button, remove } = this.createCustomDatasetButton( nextDataSet.type );
-            remove.addEventListener( 'click', ( e ) => {
-              e.preventDefault();
-              e.stopPropagation();
-              if( confirm('do you whant to delete this dataset and elements of it?') ){
-                this.uninstallCustomDataset( nextDataSet.type );
-                // console.log('try to delete');
-              }
-            });
-            custom_data_container.appendChild( button );
-          }
-        }
+        // if( localStoredDatasets && this.localStoredDatasets.length ){
+        //   for( const nextDataSet of this.localStoredDatasets ){
+        //     ELEMENTS_TYPES[ nextDataSet.type ] = nextDataSet;
+        //     const { button, remove } = this.createCustomDatasetButton( nextDataSet.type );
+        //     remove.addEventListener( 'click', ( e ) => {
+        //       e.preventDefault();
+        //       e.stopPropagation();
+        //       if( confirm('do you whant to delete this dataset and elements of it?') ){
+        //         this.uninstallCustomDataset( nextDataSet.type );
+        //         // console.log('try to delete');
+        //       }
+        //     });
+        //     custom_data_container.appendChild( button );
+        //   }
+        // }
     
         for( const nextKey in ELEMENTS_TYPES ){
           if( ELEMENTS_TYPES[ nextKey ].link ){
