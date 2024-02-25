@@ -238,7 +238,7 @@
             const postOffset = 60;
             const minWidth = 50;
             const maxWidth = document.getElementById('modules_line_element').offsetWidth - postOffset;
-            const textWidth = measureTextByElement( this.text, this.textArea );
+            const textWidth = measureTextByElement( this.text, this.textArea ) + 30;
             const nextWidth = Math.max( Math.min( maxWidth, textWidth ), minWidth );
             this.textArea.style.width = `${nextWidth}px`;
             this.api.updatePrompt();
