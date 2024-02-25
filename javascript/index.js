@@ -235,7 +235,7 @@
           this.textArea = this.element.getElementsByClassName('gen_module_textarea')[0];
           this.textArea.oninput = ( e ) => {
             this.text = this.textArea.value;
-            const postOffset = 150;
+            const postOffset = 60;
             const minWidth = 50;
             const maxWidth = document.getElementById('modules_line_element').offsetWidth - postOffset;
             const textWidth = measureTextByElement( this.text, this.textArea ) + 10;
