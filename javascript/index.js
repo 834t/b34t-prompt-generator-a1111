@@ -3,6 +3,23 @@
   const INIT_APPLICATION = () => {
     let App = null;
 
+    const measureCan = document.createElement('canvas');
+    function getCssStyle(element, prop) {
+        return window.getComputedStyle(element, null).getPropertyValue(prop);
+    }
+    function getCanvasFont(el = document.body) {
+      const fontWeight = getCssStyle(el, 'font-weight') || 'normal';
+      const fontSize = getCssStyle(el, 'font-size') || '16px';
+      const fontFamily = getCssStyle(el, 'font-family') || 'Times New Roman';
+      return `${fontWeight} ${fontSize} ${fontFamily}`;
+    }
+    const measureTextByElement = ( text, element ) => {
+      const context = measureCan.getContext("2d");
+      context.font = getCanvasFont( element );
+      const metrics = context.measureText(text);
+      return metrics.width;
+    }
+
     const ELEMENTS_TYPES = window.PROMPT_GENERATOR_BASE_DB || {
       artists: {
         link: '../db/artists.txt',
@@ -218,6 +235,12 @@
           this.textArea = this.element.getElementsByClassName('gen_module_textarea')[0];
           this.textArea.oninput = ( e ) => {
             this.text = this.textArea.value;
+            const postOffset = 40;
+            const minWidth = 50;
+            const maxWidth = document.getElementById('modules_line_element').width - postOffset;
+            const textWidth = measureTextByElement( this.text, this.textArea );
+            const nextWidth = Math.max( Math.min( maxWidth, textWidth ), minWidth );
+            this.element.style.width = `${nextWidth}px`;
             this.api.updatePrompt();
           }
         }
