@@ -699,6 +699,7 @@
     tempInput.customListener = ()=>{};
     tempInput.addEventListener('change', ( e ) => {
       const nextTXTDATASET = tempInput.files[0];
+      if(!nextTXTDATASET){ return false; }
       const nfr = new FileReader();
       nfr.onload = () => {
         App.installCustomDataset( nfr.result );
@@ -715,6 +716,7 @@
     const load_workflow_input = document.getElementById('load_workflow_input');
     load_workflow_input.addEventListener('change', ( e ) => {
       const nextTXTDATASET = load_workflow_input.files[0];
+      if(!nextTXTDATASET){ return false; }
       const nfr = new FileReader();
       nfr.onload = () => {
         let asJSON = null;
