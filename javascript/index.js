@@ -490,7 +490,7 @@
 
         custom_data_container.innerHTML = "";
     
-        if( localStoredDatasets && this.localStoredDatasets.length ){
+        if( this.localStoredDatasets && this.localStoredDatasets.length ){
           for( const nextDataSet of this.localStoredDatasets ){
             ELEMENTS_TYPES[ nextDataSet.type ] = nextDataSet;
             const { button, remove } = this.createCustomDatasetButton( nextDataSet.type );
