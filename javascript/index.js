@@ -427,7 +427,7 @@
             this.prepareCustomDataset( nextDataSetName, dataset ).then( ( datasetForSave ) => {
               this.localStoredDatasets.push( datasetForSave );
               this.saveLocalStoredDataSets();
-              window.location.reload();
+              // window.location.reload();
             } );
           }
         }
