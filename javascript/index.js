@@ -135,7 +135,7 @@
           if( this.type === 'custom' ){
             this.text = serialisedData.text;
             this.textArea.value = this.text;
-            this.textArea.computeWidth();
+            setTimout( () => { this.textArea.computeWidth(); }, 500 );
           } else if( serialisedData.text ){
             this.text = serialisedData.text;
           }
@@ -243,7 +243,7 @@
           };
           this.textArea.oninput = ( e ) => {
             this.text = this.textArea.value;
-            this.textArea.computeWidth( this.text );
+            this.textArea.computeWidth();
             this.api.updatePrompt();
           }
         }
